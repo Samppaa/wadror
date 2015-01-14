@@ -13,6 +13,7 @@ group :production do
   gem 'rails_12factor'
 end
 
+# ehkä bugi
 ruby '2.2.0'
 
 # Use SCSS for stylesheets
