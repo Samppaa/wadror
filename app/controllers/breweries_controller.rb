@@ -1,5 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, only: [:destroy]
 
   # GET /breweries
   # GET /breweries.json
@@ -47,6 +48,16 @@ class BreweriesController < ApplicationController
       else
         format.html { render action: 'edit' }
         format.json { render json: @brewery.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def authenticate
+    admin_accounts = { "admin" => "secret", "pekka" => "beer", "arto" => "foobar", "matti" => "ittam"}
+
+    authenticate_or_request_with_http_basic do |username,password|
+      if admin_accounts.has_key?(username)
+       admin_accounts[username] == password
       end
     end
   end
