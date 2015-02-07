@@ -11,6 +11,7 @@ end
 group :production do
   gem 'pg'
   gem 'rails_12factor'
+  gem 'rspec-rails', '~> 3.0'
 end
 
 # ehkä bugi
@@ -20,6 +21,12 @@ group :development, :test do
   gem "better_errors"
   gem 'byebug'
   gem 'web-console', '~> 2.0'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'rspec-its'
+  gem 'simplecov', require: false
 end
 
 # Use SCSS for stylesheets
