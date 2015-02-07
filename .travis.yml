@@ -3,14 +3,15 @@ language: ruby
 rvm:
  - 2.0.0
 
+
 script:
  - bundle exec rake db:migrate --trace
  - RAILS_ENV=test bundle exec rake db:migrate --trace
  - bundle exec rake db:test:prepare
  - bundle exec rspec -fd spec/
- 
- deploy:
+
+deploy:
   provider: heroku
   api_key: 73184866-a2c8-4d4d-bcf3-f41f07ce6c0e
-  app: ratebeer
+  app: thawing-springs-3193
   run: "rake db:migrate"
