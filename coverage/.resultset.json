@@ -4,6 +4,7 @@
       "/home/wadror/ratebeer/app/controllers/beer_clubs_controller.rb": [
         1,
         1,
+        1,
         null,
         null,
         null,
@@ -87,8 +88,12 @@
         1,
         null,
         1,
-        61,
-        44,
+        63,
+        46,
+        null,
+        null,
+        1,
+        2,
         null,
         null,
         null
@@ -249,6 +254,7 @@
         1,
         1,
         1,
+        1,
         null,
         null,
         null,
@@ -384,15 +390,6 @@
         null,
         null,
         null,
-        1,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
         null,
         null,
         null,
@@ -451,6 +448,6 @@
         null
       ]
     },
-    "timestamp": 1423255644
+    "timestamp": 1423319084
   }
 }
