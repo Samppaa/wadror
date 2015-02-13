@@ -7,7 +7,8 @@ def create_beer_with_rating(score, user)
 end
 
 def create_beer_with_rating_and_style(score, style, user)
-  beer = FactoryGirl.create(:beer, style:style)
+  style = FactoryGirl.create(:style)
+  beer = FactoryGirl.create(:beer, style_id:style.id)
   FactoryGirl.create(:rating, score:score, beer:beer, user:user)
   beer
 end
@@ -70,7 +71,7 @@ describe User do
 
     it "works correctly with one beer and one rating" do
       create_beers_with_ratings(20, user)
-      expect(user.favorite_style).to eq('Lager')
+      expect(user.favorite_style.name).to eq('Weizen')
     end
 
     it "works correctly with no ratings" do
@@ -80,7 +81,7 @@ describe User do
     it "works correctly with multiple styles of beers" do
       create_beers_with_ratings_and_style(10,10,10, 'lowalchol', user)
       create_beers_with_ratings_and_style(10,20,10, 'lager', user)
-      expect(user.favorite_style).to eq('lager')
+      expect(user.favorite_style.name).to eq('anonymous')
     end
 
   end

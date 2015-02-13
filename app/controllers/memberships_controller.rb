@@ -38,8 +38,8 @@ class MembershipsController < ApplicationController
 
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @membership }
+        format.html { redirect_to beer_club_path(@membership.beer_club_id), notice: @user.username + ', ' + 'welcome to the club!' }
+        format.json { render action: 'show', status: :created, location: beer_club_path(@membership.beer_club_id) }
       else
         format.html { render action: 'new' }
         format.json { render json: @membership.errors, status: :unprocessable_entity }
@@ -64,9 +64,11 @@ class MembershipsController < ApplicationController
   # DELETE /memberships/1
   # DELETE /memberships/1.json
   def destroy
+    @beer_clubs = BeerClub.all
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url }
+      club = @beer_clubs.find_by id:@membership.beer_club_id
+      format.html { redirect_to user_path(current_user), notice: 'Membership in ' + club.name + ' ended.' }
       format.json { head :no_content }
     end
   end

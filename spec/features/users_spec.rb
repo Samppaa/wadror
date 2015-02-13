@@ -29,7 +29,7 @@ describe "User" do
     let!(:rating2) { FactoryGirl.create :rating, score: 20, beer:beer1, user:user2 }
     it "both work correctly" do
       visit user_path(2)
-      expect(page).to have_content 'favorite style is Lager'
+      expect(page).to have_content 'favorite style is Weizen'
       expect(page).to have_content 'favorite brewery is Koff'
     end
     end

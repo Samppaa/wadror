@@ -11,10 +11,25 @@
 
 <h2>Members</h2>
 <ul>
-  <% @users.each do |user| %>
-      <li> <%= link_to user.username, user_path(user) %></li>
+  <% @beer_club.memberships.each do |membership| %>
+      <% user1 = @users.find_by id: membership.user_id %>
+      <li> <%= link_to user1.username, user_path(user1) %></li>
   <% end %>
 </ul>
+
+<%@b = @beer_club.memberships.find_by_user_id_and_beer_club_id(@membership.user_id, @membership.beer_club_id) %>
+
+<% if current_user.nil? or @b.nil? %>
+    <%= form_for(@membership) do |f| %>
+        <%= f.hidden_field :beer_club_id %>
+        <%= f.submit value:"join the club" %>
+    <% end %>
+<% else %>
+    <%= form_for(@b, method: "delete") do |f| %>
+        <%= f.hidden_field :beer_club_id %>
+        <%= f.submit value: "end the membership" %>
+    <% end %>
+<% end %>
 
 <%= link_to 'Edit', edit_beer_club_path(@beer_club) %> |
 <%= link_to 'Back', beer_clubs_path %>

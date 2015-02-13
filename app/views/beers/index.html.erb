@@ -16,7 +16,7 @@
     <% @beers.each do |beer| %>
       <tr>
         <td><%= link_to beer.name, beer %></td>
-        <td><%= beer.style %></td>
+        <td><%= beer.style.name %></td>
         <td><%= link_to (Brewery.find beer.brewery_id).name, (Brewery.find beer.brewery_id)%></td>
         <td><%= beer.brewery_id %></td>
         <td><%= link_to 'Edit', edit_beer_path(beer) %></td>

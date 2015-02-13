@@ -1,0 +1,6 @@
+<% @ravintolat = Rails.cache.read(session[:last_search_city]) %>
+<% @ravintola = @ravintolat.find {|s| s.id == params[:id] } %>
+<h2><%= @ravintola.name %></h2>
+<p><%= @ravintola.street%></p>
+<p><%= @ravintola.zip + ' ' + @ravintola.city %></p>
+<iframe src= <%=@ravintola.blogmap%>></iframe>

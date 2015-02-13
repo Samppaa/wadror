@@ -18,14 +18,14 @@ User
 
 describe Beer do
   it "is created correctly if it has name and style" do
-    beer = Beer.create name:"Test", style:"Style"
+    beer = Beer.create name:"Test", style_id:1
 
     expect(beer).to be_valid
     expect(Beer.count).to eq(1)
   end
 
   it "is not created without name" do
-    beer = Beer.new style:"Style"
+    beer = Beer.new style_id:1
     expect(beer).not_to be_valid
   end
 

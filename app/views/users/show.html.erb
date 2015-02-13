@@ -5,7 +5,9 @@
   has made <%= @user.ratings.count %> ratings and
   average of ratings is <%= @user.average_rating %>
   <br>
-  favorite style is <%= @user.favorite_style %>
+  favorite style is <%= if @user.favorite_style != '-'
+                          @user.favorite_style.name
+                        end%>
   <br>
   favorite brewery is <%= @user.favorite_brewery %>
 </p>

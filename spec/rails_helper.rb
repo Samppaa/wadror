@@ -22,6 +22,7 @@ require 'rspec/rails'
 
 require 'capybara/rspec'
 require 'simplecov'
+require 'webmock/rspec'
 SimpleCov.start('rails')
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

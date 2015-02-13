@@ -12,6 +12,9 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1.json
   def show
     @users = User.all
+    @membership = Membership.new
+    @membership.user_id = current_user.id
+    @membership.beer_club_id = @beer_club.id
   end
 
   # GET /beer_clubs/new
@@ -27,7 +30,6 @@ class BeerClubsController < ApplicationController
   # POST /beer_clubs.json
   def create
     @beer_club = BeerClub.new(beer_club_params)
-
     respond_to do |format|
       if @beer_club.save
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }

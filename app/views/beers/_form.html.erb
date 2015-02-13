@@ -16,7 +16,7 @@
         <%= f.select :brewery_id, options_from_collection_for_select(@breweries, :id, :name) %>
 
         <%= form_for(@beer) do |f| %>
-            <%= f.select :style, options_for_select(@styles) %>
+            <%= f.select :style_id, options_from_collection_for_select(@styles, :id, :name) %>
 
   <div class="field">
     <%= f.label :name %><br>
