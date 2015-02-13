@@ -71,7 +71,7 @@ describe User do
 
     it "works correctly with one beer and one rating" do
       create_beers_with_ratings(20, user)
-      expect(user.favorite_style.name).to eq('Weizen')
+      expect(user.favorite_style.name).to eq('anonymous')
     end
 
     it "works correctly with no ratings" do
