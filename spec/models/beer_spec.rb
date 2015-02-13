@@ -18,7 +18,8 @@ User
 
 describe Beer do
   it "is created correctly if it has name and style" do
-    beer = Beer.create name:"Test", style_id:1
+    style = Style.create name:"Weizen", description:"Test"
+    beer = Beer.create name:"Test", style:style
 
     expect(beer).to be_valid
     expect(Beer.count).to eq(1)
