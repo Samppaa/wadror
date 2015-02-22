@@ -25,6 +25,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.admin = false
+    @user.isfrozen = false
 
     respond_to do |format|
       if @user.save
@@ -34,6 +36,17 @@ class UsersController < ApplicationController
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def toggle_frozen
+    if current_user.admin
+      user = User.find(params[:id])
+      user.update_attribute :isfrozen, (not user.isfrozen)
+
+      new_status = user.isfrozen? ? "frozen" : "not frozen"
+
+      redirect_to :back, notice:"user frozen status changed to #{new_status}"
     end
   end
 

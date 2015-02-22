@@ -18,66 +18,53 @@ class User < ActiveRecord::Base
 
 
   def favorite_style
-    styles = {}
-    stylesAmount = {}
-
-    for rating in ratings
-      beerOfRating = rating.beer
-      keys = styles.keys
-      if !keys.include? beerOfRating.style
-        styles[beerOfRating.style] = rating.score
-        stylesAmount[beerOfRating.style] = 1;
-      else
-        styles[beerOfRating.style] += rating.score
-        stylesAmount[beerOfRating.style] += 1
-      end
-    end
-
-    keys = styles.keys
-
-    largest = 0;
-    largestKey = '-'
-
-    for key in keys
-      average = styles[key]/stylesAmount[key]
-      if average > largest
-        largest = average
-        largestKey = key
-      end
-    end
-
-    return largestKey
+    favorite :style
   end
 
+  def favorite_style_name
+    s = favorite_style
+    if s.nil?
+      return '-'
+    else
+      return s.name
+    end
+  end
+
+  def rated(category)
+    ratings.map{ |r| r.beer.send(category) }.uniq
+  end
+
+  def rating_of(category, item)
+    ratings_of_item = ratings.select do |r|
+      r.beer.send(category) == item
+    end
+    ratings_of_item.map(&:score).sum / ratings_of_item.count
+  end
+
+  def favorite(category)
+    return nil if ratings.empty?
+
+    category_ratings = rated(category).inject([]) do |set, item|
+      set << {
+          item: item,
+          rating: rating_of(category, item) }
+    end
+
+    category_ratings.sort_by { |item| item[:rating] }.last[:item]
+  end
+
+
   def favorite_brewery
-    breweries = {}
-    breweriesAmount = {}
+    favorite :brewery
+  end
 
-    for rating in ratings
-      beerOfRating = rating.beer
-      keys = breweries.keys
-      if !keys.include? beerOfRating.brewery.name
-        breweries[beerOfRating.brewery.name] = rating.score
-        breweriesAmount[beerOfRating.brewery.name] = 1;
-      else
-        breweries[beerOfRating.brewery.name] += rating.score
-        breweriesAmount[beerOfRating.brewery.name] += 1
-      end
+  def favorite_brewery_name
+    b = favorite_brewery
+    if b.nil?
+      return '-'
+    else
+      return b.name
     end
 
-    keys = breweries.keys
-
-    largest = 0;
-    largestKey = '-'
-
-    for key in keys
-      average = breweries[key]/breweriesAmount[key]
-      if average > largest
-        largest = average
-        largestKey = key
-      end
-    end
-
-    return largestKey
   end
 end
