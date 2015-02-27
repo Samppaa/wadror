@@ -3,7 +3,9 @@ Ratebeer::Application.routes.draw do
 
   resources :memberships
 
-  resources :beer_clubs
+  resources :beer_clubs do
+    post 'toggle_confirmed', on: :member
+  end
 
   resources :users do
     post 'toggle_frozen', on: :member
@@ -24,6 +26,9 @@ Ratebeer::Application.routes.draw do
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
   get 'places', to: 'places#index'
+  get 'beerlist', to:'beers#list'
+  get 'ngbeerlist', to:'beers#nglist'
+  get 'brewerylist', to:'breweries#brewerylist'
   post 'places', to:'places#search'
   delete 'signout', to: 'sessions#destroy'
 

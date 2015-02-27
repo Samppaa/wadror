@@ -10,12 +10,21 @@
   favorite brewery is <%= @user.favorite_brewery_name %>
 </p>
 
-<p>
-  member of
+<p><strong>
+  member of</strong>
   <% @user.beer_clubs.each do |club| %>
-    <%= link_to club.name, beer_club_path(club) %>
+      <%if club.isMemberAndConfirmed(@user) %><%= link_to club.name, beer_club_path(club) %><%end%>
   <% end %>
 </p>
+
+<p><strong>
+  has applied to</strong>
+  <% @user.beer_clubs.each do |club| %>
+      <%if club.hasAppliedTo(@user) %><%= link_to club.name, beer_club_path(club) %><%end%>
+  <% end %>
+</p>
+
+
 
 <ul>
   <% @user.ratings.each do |rating| %>

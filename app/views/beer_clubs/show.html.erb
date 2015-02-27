@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <h1><%= @beer_club.name + ' ' + @beer_club.city %></h1>
 </p>
@@ -13,15 +11,41 @@
 <ul>
   <% @beer_club.memberships.each do |membership| %>
       <% user1 = @users.find_by id: membership.user_id %>
-      <li> <%= link_to user1.username, user_path(user1) %></li>
+      <%if @beer_club.isMemberAndConfirmed(user1) %><li> <%= link_to user1.username, user_path(user1) %></li><% end %>
   <% end %>
 </ul>
+
+<% if @beer_club.isMemberAndConfirmed(current_user) %>
+<h2>Unconfirmed memberships</h2>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Username</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @beer_club.memberships.each do |membership|  %>
+      <% user1 = @users.find_by id: membership.user_id %>
+      <%if !@beer_club.isMemberAndConfirmed(user1) %>
+      <tr>
+        <td><%=user1.username%></td>
+        <td><%= link_to 'Confirm membership' , toggle_confirmed_beer_club_path(:user_id => membership.user_id,:beer_club_id => membership.beer_club_id), method: :post, class:'btn btn-primary' %></td>
+      </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+<% end %>
 
 <%@b = @beer_club.memberships.find_by_user_id_and_beer_club_id(@membership.user_id, @membership.beer_club_id) %>
 
 <% if current_user.nil? or @b.nil? %>
     <%= form_for(@membership) do |f| %>
         <%= f.hidden_field :beer_club_id %>
+        <%= f.hidden_field :confirmed, :value => false %>
         <%= f.submit value:"join the club" %>
     <% end %>
 <% else %>

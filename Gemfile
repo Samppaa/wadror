@@ -10,6 +10,8 @@ end
 
 group :test do
   gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 group :production do
@@ -32,12 +34,16 @@ group :development, :test do
   gem 'launchy'
   gem 'rspec-its'
   gem 'simplecov', require: false
+  gem 'rack-mini-profiler'
 end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
 gem 'bootstrap-sass'
+
+
+gem 'jquery-turbolinks'
 
 gem 'httparty'
 
