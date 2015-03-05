@@ -70,6 +70,7 @@ class BreweriesController < ApplicationController
   # POST /breweries.json
   def create
     expire_fragment('brewerylist')
+    expire_fragment('brewerylist2')
     @brewery = Brewery.new(brewery_params)
 
     respond_to do |format|
@@ -86,6 +87,7 @@ class BreweriesController < ApplicationController
   # PATCH/PUT /breweries/1
   # PATCH/PUT /breweries/1.json
   def update
+    expire_fragment('brewerylist')
     expire_fragment('brewerylist')
     respond_to do |format|
       if @brewery.update(brewery_params)

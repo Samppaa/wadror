@@ -6,13 +6,17 @@
 
 <p> Number of active breweries: <%= @active_breweries.count %> </p>
 
+<% cache "brewerylist", skip_digest: true do %>
 <%= render 'list', breweries: @active_breweries %>
+<% end %>
 
 <h2>Retired</h2>
 
 <p> Number of retired breweries: <%= @retired_breweries.count %> </p>
 
+<% cache "brewerylist2", skip_digest: true do %>
 <%= render 'list', breweries: @retired_breweries %>
+<% end %>
 
 <br>
 
